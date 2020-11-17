@@ -46,6 +46,7 @@ class firepad.ACEAdapter
   # Converts an ACE change object into a TextOperation and its inverse
   # and returns them as a two-element array.
   operationFromACEChange: (change) ->
+    console.log 'extracting an operation from ace'
     if change.data
       # Ace < 1.2.0
       delta = change.data
@@ -72,6 +73,7 @@ class firepad.ACEAdapter
 
   # Apply an operation to an ACE instance.
   applyOperationToACE: (operation) ->
+    console.log 'applying an operation to ace'
     index = 0
     for op in operation.ops
       if op.isRetain()
@@ -103,6 +105,7 @@ class firepad.ACEAdapter
     @aceDoc.getValue()
 
   getCursor: ->
+    console.log 'getting the cursor'
     try
       start = @indexFromPos @aceSession.selection.getRange().start, @aceDoc.$lines
       end = @indexFromPos @aceSession.selection.getRange().end, @aceDoc.$lines
@@ -119,6 +122,7 @@ class firepad.ACEAdapter
     new firepad.Cursor start, end
 
   setCursor: (cursor) ->
+    console.log 'setting the cursor'
     start = @posFromIndex cursor.position
     end = @posFromIndex cursor.selectionEnd
     if cursor.position > cursor.selectionEnd
